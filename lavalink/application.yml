@@ -1,0 +1,113 @@
+server:
+  port: 2333
+  address: 127.0.0.1
+  http2:
+    enabled: false
+
+lavalink:
+  plugins:
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.1"
+      repository: "https://maven.lavalink.dev/releases"
+      snapshot: false
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.8.3"
+      repository: "https://maven.lavalink.dev/releases"
+      snapshot: false
+  pluginsDir: "./plugins"
+  server:
+    password: "${LAVALINK_PASSWORD:youshallnotpass}"
+    sources:
+      youtube: false
+      bandcamp: true
+      soundcloud: true
+      twitch: true
+      vimeo: true
+      http: true
+      local: false
+    filters:
+      volume: true
+      equalizer: true
+      karaoke: true
+      timescale: true
+      tremolo: true
+      vibrato: true
+      distortion: true
+      rotation: true
+      channelMix: true
+      lowPass: true
+    bufferDurationMs: 400
+    frameBufferDurationMs: 5000
+    opusEncodingQuality: 10
+    resamplingQuality: LOW
+    trackStuckThresholdMs: 10000
+    useSeekGhosting: true
+    youtubePlaybackStatus: false
+    ratelimit:
+      ipBlocks: []
+      excludedIps: []
+      strategy: "RotateOnBan"
+      searchTriggersFail: true
+      retryLimit: -1
+    youtubeConfig:
+      email: ""
+      password: ""
+    httpConfig:
+      proxyHost: ""
+      proxyPort: 0
+      proxyUser: ""
+      proxyPassword: ""
+
+plugins:
+  youtube:
+    enabled: true
+    allowSearch: true
+    allowDirectVideoIds: true
+    allowDirectPlaylistIds: true
+    # Ordem importa: o primeiro que conseguir tocar vence.
+    # MUSIC e TVHTML5EMBEDDED bypassam o "video requires login" na maioria dos casos.
+    clients:
+      - MUSIC
+      - TVHTML5EMBEDDED
+      - WEB
+      - WEBEMBEDDED
+      - ANDROID_VR
+  lavasrc:
+    providers:
+      - "ytsearch:\"%ISRC%\""
+      - "ytsearch:%QUERY%"
+    sources:
+      spotify: true
+      applemusic: false
+      deezer: false
+      yandexmusic: false
+      flowerytts: false
+      youtube: true
+    lyrics-sources:
+      spotify: false
+      youtube: false
+    spotify:
+      clientId: "${SPOTIFY_CLIENT_ID:}"
+      clientSecret: "${SPOTIFY_CLIENT_SECRET:}"
+      countryCode: "BR"
+      playlistLoadLimit: 6
+      albumLoadLimit: 6
+
+metrics:
+  prometheus:
+    enabled: false
+
+sentry:
+  dsn: ""
+  environment: ""
+
+logging:
+  file:
+    path: "./logs/"
+  level:
+    root: INFO
+    lavalink: INFO
+  request:
+    enabled: false
+  logback:
+    rollingpolicy:
+      max-file-size: 25MB
+      max-history: 30

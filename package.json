@@ -1,0 +1,36 @@
+{
+  "name": "talesbot",
+  "version": "3.0.0",
+  "description": "Bot de musica + moderacao pro Discord (TypeScript + Lavalink)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node start.js",
+    "start:bot": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "deploy": "tsx src/deploy-commands.ts"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "music",
+    "moderation",
+    "lavalink"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "discord.js": "^14.26.4",
+    "dotenv": "^16.4.5",
+    "kazagumo": "^3.4.3",
+    "shoukaku": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.19",
+    "tsx": "^4.22.3",
+    "typescript": "^5.9.3"
+  }
+}
