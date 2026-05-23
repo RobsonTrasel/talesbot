@@ -22,8 +22,8 @@ export class MusicManager {
   constructor(private readonly client: Client) {
     this.kazagumo = new Kazagumo(
       {
-        defaultSearchEngine: "youtube",
-        defaultSource: "ytmsearch:",
+        defaultSearchEngine: "soundcloud",
+        defaultSource: "scsearch:",
         send: (guildId, payload) => {
           const guild = client.guilds.cache.get(guildId);
           if (guild) guild.shard.send(payload);
@@ -47,11 +47,12 @@ export class MusicManager {
   }
 
   async search(query: string, opts: { requester: unknown; isUrl: boolean }) {
+    // Default: SoundCloud (sem IP block). Fallback: YouTube Music (pode falhar em datacenter).
     const result = await this.kazagumo.search(query, { requester: opts.requester });
     if (!opts.isUrl && !result?.tracks?.length) {
-      this.logger.warn(`YT Music vazio pra "${query}", tentando YouTube`);
+      this.logger.warn(`SoundCloud vazio pra "${query}", tentando YouTube Music`);
       return this.kazagumo.search(query, {
-        source: "ytsearch:",
+        source: "ytmsearch:",
         requester: opts.requester,
       });
     }

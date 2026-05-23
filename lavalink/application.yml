@@ -72,7 +72,7 @@ plugins:
       - ANDROID_VR
   lavasrc:
     providers:
-      - "ytsearch:\"%ISRC%\""
+      - "scsearch:%QUERY%"
       - "ytsearch:%QUERY%"
     sources:
       spotify: true
